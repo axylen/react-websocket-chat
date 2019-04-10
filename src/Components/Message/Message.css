@@ -24,9 +24,14 @@
 }
 
 .message--notify {
+  font-size: var(--font-text);
+  line-height: 1;
+
   align-self: center;
 
   padding: 0;
+
+  text-align: center;
 
   color: currentColor;
   background-color: transparent;
