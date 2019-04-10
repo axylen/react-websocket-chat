@@ -1,9 +1,17 @@
 .message-list {
   overflow-x: hidden;
-  overflow-y: auto;
 
   height: 100%;
   padding: 1rem;
+}
+
+.message-list::-webkit-scrollbar {
+  width: .5rem;
+}
+
+.message-list::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: var(--color-secondary);
 }
 
 .message-list__content {
@@ -12,21 +20,25 @@
 }
 
 .from-right-enter {
-  opacity: 0;
   transform: translateX(100%);
+
+  opacity: 0;
 }
 .from-right-enter-active {
-  opacity: 1;
   transition: transform 200ms ease-out, opacity 50ms ease-out 100ms;
   transform: translateX(0);
+
+  opacity: 1;
 }
 
 .from-left-enter {
-  opacity: 0;
   transform: translateX(-100%);
+
+  opacity: 0;
 }
 .from-left-enter-active {
-  opacity: 1;
   transition: transform 200ms ease-out, opacity 50ms ease-out 100ms;
   transform: translateX(0);
+
+  opacity: 1;
 }

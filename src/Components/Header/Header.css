@@ -2,7 +2,10 @@
   position: sticky;
   top: 0;
 
-  padding: 1rem;
+  display: flex;
+  align-items: center;
+
+  height: 3.125rem;
 
   color: var(--color-text);
   background-color: #f8f8f8;
