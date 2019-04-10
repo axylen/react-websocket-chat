@@ -1,0 +1,31 @@
+import React from 'react';
+import './Login.css';
+
+export default function Login(props) {
+  const { user, setUser, login, userCount = 0 } = props;
+
+  function handleLogin(e) {
+    e.preventDefault();
+    if (user.length < 2) return;
+
+    login();
+  }
+
+  return (
+    <div className="login-container">
+      <form onSubmit={handleLogin} className="login-form">
+        <h1 className="login-form__header">Чат</h1>
+        <h2 className="login-form__info">Онлайн: {userCount}</h2>
+
+        <input
+          value={user}
+          onChange={e => setUser(e.target.value)}
+          placeholder="Ваше имя"
+          maxLength="15"
+          className="input-text"
+        />
+        <button className="login-form__button btn btn--primary">Войти</button>
+      </form>
+    </div>
+  );
+}

@@ -1,28 +1,52 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
+import Login from './Components/Login/Login';
+import Chat from './Containers/Chat/Chat';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+import openSocket from 'socket.io-client';
+
+function App() {
+  const [user, setUser] = useState('');
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [socket, setSocket] = useState(null);
+  const [userCount, setUserCount] = useState(0);
+
+  useEffect(() => {
+    const conectionAddress =
+      process.env.NODE_ENV === 'development' ? '//:8080' : undefined;
+    const socket = openSocket(conectionAddress);
+    setSocket(socket);
+
+    socket.on('user:updatecount', setUserCount);
+
+    return socket.close;
+  }, []);
+
+  function handleLogin() {
+    setLoggedIn(true);
+
+    socket.emit('user:connect', { user });
   }
+  function handleLogout() {
+    setLoggedIn(false);
+
+    socket.emit('user:disconnect');
+  }
+
+  return loggedIn ? (
+    <Chat
+      user={user}
+      logout={handleLogout}
+      userCount={userCount}
+      socket={socket}
+    />
+  ) : (
+    <Login
+      user={user}
+      setUser={setUser}
+      login={handleLogin}
+      userCount={userCount}
+    />
+  );
 }
 
 export default App;

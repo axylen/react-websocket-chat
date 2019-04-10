@@ -1,0 +1,32 @@
+.message-list {
+  overflow-x: hidden;
+  overflow-y: auto;
+
+  height: 100%;
+  padding: 1rem;
+}
+
+.message-list__content {
+  display: flex;
+  flex-direction: column;
+}
+
+.from-right-enter {
+  opacity: 0;
+  transform: translateX(100%);
+}
+.from-right-enter-active {
+  opacity: 1;
+  transition: transform 200ms ease-out, opacity 50ms ease-out 100ms;
+  transform: translateX(0);
+}
+
+.from-left-enter {
+  opacity: 0;
+  transform: translateX(-100%);
+}
+.from-left-enter-active {
+  opacity: 1;
+  transition: transform 200ms ease-out, opacity 50ms ease-out 100ms;
+  transform: translateX(0);
+}
