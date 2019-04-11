@@ -1,5 +1,23 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+# Запуск
+
+Запуск производится из дерриктории программы.
+
+## Запуск в режиме разработки `npm run dev`
+
+Запускает приложение в режиме разработки.<br>
+Откройте [http://localhost:3000](http://localhost:3000) чтобы посмотреть в браузере.
+
+Страница будет перезагружаться автоматически.<br>
+
+## Запуск в продакшн
+
+### `npm run build` - запуск билда проекта
+### `node app.js` - запуск сервера
+
+
+# Create-React-App Docs
 ## Available Scripts
 
 In the project directory, you can run:
