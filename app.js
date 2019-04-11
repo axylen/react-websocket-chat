@@ -6,7 +6,7 @@ const io = require('socket.io')(server);
 
 app.use(express.static(__dirname + '/build'));
 
-const messages = []; // {userId, text, date, type(message, info)}
+const messages = []; // {userId, text, date, type(message, info), id}
 
 const users = {}; // { online, user }
 
@@ -24,15 +24,22 @@ function getOnlineUsers() {
   return arr;
 }
 
+function getMessages(count = messages.length) {
+  if (messages.length <= count) return messages.slice();
+
+  return messages.slice(messages.length - count, messages.length);
+}
+
 function addMessage(socket, msg) {
   msg.date = new Date();
+  msg.id = messages.length;
 
   messages.push(msg);
 
   socket.broadcast.emit('message', buildMessage(msg));
 }
 
-// {User, UserId, Text, Type, Date}
+// {User, UserId, Text, Type, Date, id}
 function buildMessage(msg) {
   return {
     ...msg,
@@ -68,7 +75,7 @@ function onUserConnect(socket, data) {
     type: 'info',
   });
 
-  socket.emit('user:connect', messages.map(buildMessage));
+  socket.emit('user:connect', getMessages(100).map(buildMessage));
 }
 
 function onReceiveMessage(socket, msg) {

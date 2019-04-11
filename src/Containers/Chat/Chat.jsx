@@ -11,7 +11,11 @@ export default function Chat(props) {
   const [messages, setMessages] = useState([]);
 
   function addMessage(message) {
-    setMessages(m => [...m, message]);
+    setMessages(m => {
+      if (m.length < 100) return [...m, message];
+
+      return [...m.slice(m.length - 99, m.length), message];
+    });
   }
 
   function handleSendMessage(text) {
@@ -23,7 +27,9 @@ export default function Chat(props) {
 
     newMessage.owner = true;
     newMessage.user = user;
+    newMessage.userId = socket.id;
     newMessage.date = new Date();
+    newMessage.id = messages[messages.length - 1].id + 1;
     addMessage(newMessage);
   }
 

@@ -17,11 +17,11 @@ export default function MessageList(props) {
   return (
     <div className="message-list">
       <TransitionGroup className="message-list__content">
-        {messages.map((el, id) => (
+        {messages.map(el => (
           <CSSTransition
             classNames={el.owner ? 'from-right' : 'from-left'}
-            timeout={300}
-            key={id}>
+            timeout={{enter: 300, exit: 0}}
+            key={el.id}>
             <Msg {...el} />
           </CSSTransition>
         ))}
