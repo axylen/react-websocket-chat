@@ -88,7 +88,7 @@ function onReceiveMessage(socket, msg) {
 
 function onUserDisconnect(socket) {
   const userId = socket.id;
-  if (!users[userId]) return;
+  if (!users[userId] || users[userId].online === false) return;
 
   users[userId].online = false;
 
