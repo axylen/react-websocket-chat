@@ -26,7 +26,9 @@ function App() {
   function handleLogin() {
     setLoggedIn(true);
 
-    socket.emit('user:connect', { user });
+    setUser(user.trim());
+
+    socket.emit('user:connect', { user: user.trim() });
   }
   function handleLogout() {
     setLoggedIn(false);

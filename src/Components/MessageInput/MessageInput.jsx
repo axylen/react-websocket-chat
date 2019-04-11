@@ -8,9 +8,11 @@ export default function MessageInput(props) {
   function handleSubmin(e) {
     e.preventDefault();
 
-    if (text === '') return;
+    const newText = text.trim();
 
-    sendMessage(text);
+    if (newText === '') return;
+
+    sendMessage(newText);
     setText('');
   }
 
@@ -21,6 +23,7 @@ export default function MessageInput(props) {
         onChange={e => setText(e.target.value)}
         className="input-text"
         placeholder="Написать сообщение"
+        maxLength="500"
       />
     </form>
   );

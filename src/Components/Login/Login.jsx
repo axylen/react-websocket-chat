@@ -6,7 +6,7 @@ export default function Login(props) {
 
   function handleLogin(e) {
     e.preventDefault();
-    if (user.length < 2) return;
+    if (user.trim().length < 2) return;
 
     login();
   }
@@ -19,7 +19,7 @@ export default function Login(props) {
 
         <input
           value={user}
-          onChange={e => setUser(e.target.value)}
+          onChange={e => setUser(e.target.value.trimLeft())}
           placeholder="Ваше имя"
           maxLength="15"
           className="input-text"
