@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Message.css';
 
+import { SocketContext } from '../../App';
+
 export default function Message(props) {
-  const { user, text, owner, type } = props;
+  const { user, text, userId, type } = props;
   const date = props.date ? new Date(props.date) : new Date();
+
+  const socket = useContext(SocketContext);
+  const owner = socket.id === userId;
+
   let className = 'message';
 
   if (owner) className += ' message--owner';

@@ -4,6 +4,8 @@ import Chat from './Containers/Chat/Chat';
 
 import openSocket from 'socket.io-client';
 
+const SocketContext = React.createContext(null);
+
 function App() {
   const [user, setUser] = useState('');
   const [loggedIn, setLoggedIn] = useState(false);
@@ -33,12 +35,9 @@ function App() {
   }
 
   return loggedIn ? (
-    <Chat
-      user={user}
-      logout={handleLogout}
-      userCount={userCount}
-      socket={socket}
-    />
+    <SocketContext.Provider value={socket}>
+      <Chat user={user} logout={handleLogout} userCount={userCount} />
+    </SocketContext.Provider>
   ) : (
     <Login
       user={user}
@@ -50,3 +49,4 @@ function App() {
 }
 
 export default App;
+export { SocketContext };

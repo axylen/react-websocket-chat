@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import './Chat.css';
 
 import Container from '../Container/Container';
@@ -6,9 +6,13 @@ import Header from '../../Components/Header/Header';
 import MessageList from '../MessageList/MessageList';
 import MessageInput from '../../Components/MessageInput/MessageInput';
 
+import { SocketContext } from '../../App';
+
 export default function Chat(props) {
-  const { socket, logout, user, userCount } = props;
+  const { logout, user, userCount } = props;
   const [messages, setMessages] = useState([]);
+
+  const socket = useContext(SocketContext);
 
   function addMessage(message) {
     setMessages(m => {
@@ -25,7 +29,6 @@ export default function Chat(props) {
 
     socket.emit('message', newMessage);
 
-    newMessage.owner = true;
     newMessage.user = user;
     newMessage.userId = socket.id;
     newMessage.date = new Date();
