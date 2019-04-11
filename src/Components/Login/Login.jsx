@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import './Login.css';
 
 export default function Login(props) {
@@ -11,6 +11,12 @@ export default function Login(props) {
     login();
   }
 
+  const input = useRef(null);
+
+  useEffect(() => {
+    input.current.select();
+  }, []);
+
   return (
     <div className="login-container">
       <form onSubmit={handleLogin} className="login-form">
@@ -21,8 +27,10 @@ export default function Login(props) {
           value={user}
           onChange={e => setUser(e.target.value.trimLeft())}
           placeholder="Ваше имя"
-          maxLength="15"
+          maxLength="25"
           className="input-text"
+          autoFocus
+          ref={input}
         />
         <button className="login-form__button btn btn--primary">Войти</button>
       </form>

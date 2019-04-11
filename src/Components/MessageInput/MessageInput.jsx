@@ -24,6 +24,7 @@ export default function MessageInput(props) {
         className="input-text"
         placeholder="Написать сообщение"
         maxLength="500"
+        autoFocus
       />
     </form>
   );
