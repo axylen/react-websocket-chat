@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import './MessageInput.css';
 
+import Arrow from '../../arrow.svg';
+import ReactSVG from 'react-svg';
+
 export default function MessageInput(props) {
   const { sendMessage } = props;
   const [text, setText] = useState('');
@@ -26,6 +29,9 @@ export default function MessageInput(props) {
         maxLength="500"
         autoFocus
       />
+      <button className="message-send">
+        <ReactSVG src={Arrow} svgClassName="message-send__icon"/>
+      </button>
     </form>
   );
 }
