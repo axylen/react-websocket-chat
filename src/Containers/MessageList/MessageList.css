@@ -1,4 +1,6 @@
 .message-list {
+  position: relative;
+
   overflow-x: hidden;
 
   height: 100%;
@@ -29,4 +31,37 @@
   transform: scale(1) perspective(300px) rotateY(0deg);
 
   opacity: 1;
+}
+
+.to-bottom {
+  position: sticky;
+  bottom: 0;
+
+  float: right;
+
+  width: 2rem;
+  height: 2rem;
+
+  cursor: pointer;
+
+  color: var(--color-primary);
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  background-color: var(--color-secondary);
+}
+
+.to-bottom:focus,
+.to-bottom:hover {
+  color: white;
+  outline: none;
+  background-color: var(--color-primary);
+}
+
+.to-bottom__arrow {
+  width: 100%;
+  height: 100%;
+
+  transform: rotateZ(90deg) translateX(10%);
+
+  fill: currentColor;
 }
