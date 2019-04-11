@@ -8,25 +8,45 @@ const Msg = React.memo(Message);
 
 export default function MessageList(props) {
   const messages = props.messages;
-  const bottom = useRef(null);
+  const isFirstRender = usePrevious(messages, []).length < 1;
+  const list = useRef(null);
 
   useEffect(() => {
-    if (bottom.current) bottom.current.scrollIntoView({ behavior: 'smooth' });
+    const el = list.current.querySelector('.message-list__content>:last-child');
+
+    if (!el) return;
+
+    const top = el.getBoundingClientRect().top;
+    const scrollHeight = list.current.clientHeight;
+    const offset = top - scrollHeight;
+
+    if (offset < 250) {
+      el.scrollIntoView({ behavior: 'auto', block: 'start' });
+    } else if (isFirstRender) {
+      el.scrollIntoView({ behavior: 'auto' });
+    }
   }, [messages]);
 
   return (
-    <div className="message-list">
+    <div className="message-list" ref={list}>
       <TransitionGroup className="message-list__content">
         {messages.map(el => (
           <CSSTransition
-            classNames='appear'
-            timeout={{enter: 300, exit: 0}}
+            classNames={isFirstRender ? '' : 'appear'}
+            timeout={{ enter: 300, exit: 0 }}
             key={el.id}>
             <Msg {...el} />
           </CSSTransition>
         ))}
       </TransitionGroup>
-      <div ref={bottom} />
     </div>
   );
+}
+
+function usePrevious(value, defaultVal = null) {
+  const ref = useRef(defaultVal);
+  useEffect(() => {
+    ref.current = value;
+  });
+  return ref.current;
 }
